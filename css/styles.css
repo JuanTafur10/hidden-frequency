@@ -208,8 +208,8 @@ footer {
         flex-direction: column;
         text-align: center;
     }
-
+    
     .nav-links {
-        jutify-content: center;sss
+        justify-content: center;
     }
 }
