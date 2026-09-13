@@ -8,3 +8,10 @@
     --border-radius: 8px;
 }
 
+body.dark-mode {
+    --bg-clor: #18181b;
+    --text-color: #f4f4f5;
+    --header-bg: #09090b;
+    --card-bg: #27272a;
+}
+
