@@ -32,7 +32,7 @@ const products = [
         category: "Vinilos",
         price: 42.00,
         description: "Obra maestra del hip hop underground. Prensado de 180g.",
-        image: "assets/images/mf-doom-madvillainy.jpg"
+        image: "assets/images/madvillainy.jpg"
     },
 
     {
