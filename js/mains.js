@@ -40,3 +40,44 @@ filterButtons.forEach(button => {
     });
 });
 
+const form = document.getElementById('reservation-form');
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    let isValid = true;
+
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const itemInput = document.getElementById('item');
+
+    const nameError = document.getElementById('name-error');
+    const emailError = document.getElementById('email-error');
+    const itemError = document.getElementById('item-error');
+
+    nameError.textContent = '';
+    emailError.textContent = '';
+    itemError.textContent = '';
+
+    if (nameInput.ariaValueMax.trim() === '') {
+        nameError.textContent = 'Por favor, ingresa tu nombre completo.';
+        isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailInput.value.trim() === '') {
+        emailError.textContent = 'Por favor, ingresa tu correo electrónico.';
+        isValid = false;
+    }
+
+    if (itemInput.value.trim() === '') {
+        itemError.textContent = 'Por favor, ingresa el nombre del producto que deseas reservar.';
+        isValid = false;
+    }
+
+    if (isValid) {
+        alert('¡Gracias por tu reserva! Nos pondremos en contacto contigo pronto.');
+        form.reset();
+    }
+});
+
