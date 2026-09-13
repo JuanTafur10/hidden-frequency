@@ -196,5 +196,20 @@ button[type = "submit"] {
     width: 100%;
 }
 
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--header-bg);
+    color: var(--header-text);
+}
 
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
 
+    .nav-links {
+        jutify-content: center;sss
+    }
+}
