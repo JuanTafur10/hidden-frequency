@@ -40,3 +40,39 @@ header {
     gap: 1rem;
 }
 
+.header-content h1 {
+    font-size: 1.85rem;
+    margin: 0.2rem;
+}
+
+.header-content p {
+    font-size: 0.9rem;
+    color: #a1a1aa;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--header-text);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+#theme-toggle {
+    background: none;
+    border: 1px solid var(--header-text);
+    color: var(--header-text);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
