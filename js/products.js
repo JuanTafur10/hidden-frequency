@@ -5,7 +5,7 @@ const products = [
         category: "Vinilos",
         price: 250.000,
         description: "Edición especial 2LP del clasico de 2001. Estado: Mint (Muevo).",
-        image: "assets/images/daft-punk-discovery.jpg"
+        image: "assets/images/daft-punk.jpg"
     },
 
     {
@@ -14,7 +14,7 @@ const products = [
         category: "Pedales",
         price: 350.000,
         description: "El pedal de distorsión más clásico. Tono agresivo para guitarra y sintes.",
-        image: "assets/images/boss-ds1.jpg"
+        image: "assets/images/boss-DS-1.jpg"
     },
 
     {
