@@ -65,7 +65,6 @@ form.addEventListener('submit', (e) => {
     emailError.textContent = '';
     itemError.textContent = '';
 
-    // Validaciones
     if (nameInput.value.trim() === '') {
         nameError.textContent = 'Por favor, ingresa tu nombre completo.';
         isValid = false;
@@ -100,7 +99,7 @@ form.addEventListener('submit', (e) => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('¡Solicitud enviada! Revisa tu correo.');
+                showToast('¡Solicitud enviada! Revisa tu correo.');
                 form.reset(); 
             } else {
                 alert('Error al enviar. ¿Pusiste tu Access Key de Web3Forms en el HTML?');
@@ -135,3 +134,13 @@ themeToggleBtn.addEventListener('click', () => {
         themeToggleBtn.textContent = 'Modo Oscuro';
     }
 });
+
+function showToast(mensaje) {
+    const toast = document.getElementById('toast-notification');
+    toast.textContent = mensaje;
+    toast.classList.add('show');
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 4000);
+}
