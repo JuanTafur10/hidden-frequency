@@ -4,7 +4,7 @@ const products = [
         title: "Daft Punk - Discovery",
         category: "Vinilos",
         price: 250000,
-        description: "Edición especial 2LP del clasico de 2001. Estado: Mint (Muevo).",
+        description: "Edición especial 2LP del clasico de 2001. Estado: Mint (Nuevo).",
         image: "assets/images/daft-punk.jpg"
     },
 
