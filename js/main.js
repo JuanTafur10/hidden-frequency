@@ -50,10 +50,9 @@ filterButtons.forEach(button => {
 const form = document.getElementById('reservation-form');
 
 form.addEventListener('submit', (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
 
     let isValid = true;
-
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
     const itemInput = document.getElementById('item');
@@ -66,25 +65,54 @@ form.addEventListener('submit', (e) => {
     emailError.textContent = '';
     itemError.textContent = '';
 
-    if (nameInput.ariaValueMax.trim() === '') {
+    // Validaciones
+    if (nameInput.value.trim() === '') {
         nameError.textContent = 'Por favor, ingresa tu nombre completo.';
         isValid = false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailInput.value.trim() === '') {
-        emailError.textContent = 'Por favor, ingresa tu correo electrónico.';
+        emailError.textContent = 'El correo electrónico es obligatorio.';
+        isValid = false;
+    } else if (!emailRegex.test(emailInput.value)) {
+        emailError.textContent = 'Ingresa un correo válido.';
         isValid = false;
     }
 
     if (itemInput.value.trim() === '') {
-        itemError.textContent = 'Por favor, ingresa el nombre del producto que deseas reservar.';
+        itemError.textContent = 'Indícanos qué equipo o vinilo buscas.';
         isValid = false;
     }
 
     if (isValid) {
-        alert('¡Gracias por tu reserva! Nos pondremos en contacto contigo pronto.');
-        form.reset();
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Enviando...';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(form);
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('¡Solicitud enviada! Revisa tu correo.');
+                form.reset(); 
+            } else {
+                alert('Error al enviar. ¿Pusiste tu Access Key de Web3Forms en el HTML?');
+            }
+        })
+        .catch(error => {
+            alert('Error de red. Revisa tu conexión.');
+        })
+        .finally(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
     }
 });
 
