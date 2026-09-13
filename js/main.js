@@ -65,7 +65,7 @@ form.addEventListener('submit', (e) => {
     emailError.textContent = '';
     itemError.textContent = '';
 
-    if (nameInput.value.trim() === '') {
+    if (nameInput.value.trim().length < 3 === '') {
         nameError.textContent = 'Por favor, ingresa tu nombre completo.';
         isValid = false;
     }
@@ -79,7 +79,7 @@ form.addEventListener('submit', (e) => {
         isValid = false;
     }
 
-    if (itemInput.value.trim() === '') {
+    if (itemInput.value.trim().length < 3 === '') {
         itemError.textContent = 'Indícanos qué equipo o vinilo buscas.';
         isValid = false;
     }
