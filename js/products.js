@@ -3,7 +3,7 @@ const products = [
         id: 1,
         title: "Daft Punk - Discovery",
         category: "Vinilos",
-        price: 250.000,
+        price: 250000,
         description: "Edición especial 2LP del clasico de 2001. Estado: Mint (Muevo).",
         image: "assets/images/daft-punk.jpg"
     },
@@ -12,7 +12,7 @@ const products = [
         id: 2,
         title: "Boss DS-1 Distortion",
         category: "Pedales",
-        price: 350.000,
+        price: 350000,
         description: "El pedal de distorsión más clásico. Tono agresivo para guitarra y sintes.",
         image: "assets/images/boss-DS-1.jpg"
     },
@@ -21,7 +21,7 @@ const products = [
         id: 3,
         title: "korg Minilogue XD",
         category: "Insterumentos",
-        price: 980.000,
+        price: 980000,
         description: "Sintetizador analógico polifónico de 4 voces con efectos digitales.",
         image: "assets/images/korg.jpg"
     },
@@ -30,7 +30,7 @@ const products = [
         id: 4,
         title: "MF DOOM - Madvillainy",
         category: "Vinilos",
-        price: 42.00,
+        price: 420000,
         description: "Obra maestra del hip hop underground. Prensado de 180g.",
         image: "assets/images/madvillainy.jpg"
     },
@@ -39,7 +39,7 @@ const products = [
         id: 5,
         title: "Strymon BigSky",
         category: "Pedales",
-        price: 479.00,
+        price: 479000,
         description: "Reverb de reverberaciones algorítmicas de calidad de estudio.",
         image: "assets/images/strymon-bigsky.jpg"
     },
@@ -48,8 +48,8 @@ const products = [
         id: 6,
         title: "Technics SL-1200MK7",
         category: "Instrumentos",
-        price: 999.00,
+        price: 598000,
         description: "Tornamesa profesional para DJ de tracción directa. El estándar de la industria.",
-        image: "assets/images/technics-1200.jpg"
+        image: "assets/images/Technics-SL-1200MK7-Audiofilo-Store-2.jpg"
     }
 ]

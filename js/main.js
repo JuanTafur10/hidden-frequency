@@ -7,6 +7,12 @@ function renderProducts(itemsToRender) {
 
     itemsToRender.forEach(item => {
 
+        const precioFormateado = new Intl.NumberFormat('es-CO', {
+            style: 'currency',
+            currency: 'COP',
+            minimumFractionDigits: 0
+        }).format(item.price);
+
         const card = document.createElement('article');
         card.classList.add('product-card');
 
@@ -14,8 +20,8 @@ function renderProducts(itemsToRender) {
             <img src="${item.image}" alt="${item.title}" style="width: 100%; border-radius: 4px; margin-bottom: 1rem; object-fit: cover; aspect-ratio: 1/1;">
             <h3>${item.title}</h3>
             <p>${item.description}</p>
-            <p class="product-price">$${item.price.toFixed(2)}</p>
-            <button class="submit-btn" style="width: 100%; background-color: var(--text-color);">Lo quiero</button>
+            <p class="product-price">${precioFormateado}</p>
+            <button class="card-btn">Lo quiero</button>
         `;
 
         gridContainer.appendChild(card);
@@ -27,12 +33,13 @@ renderProducts(products);
 filterButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         filterButtons.forEach(btn => btn.classList.remove('active'));
-        e.currentTarget.classList.add('active');
+        e.target.classList.add('active');
 
-        const category = e.target.getAtrribute('data-category');
+        const category = e.target.getAttribute('data-category');
+        console.log("Filtrando por:", category);
 
         if (category === 'Todos') {
-            renderProducts(products);
+            renderProducts(products); 
         } else {
             const filteredProducts = products.filter(product => product.category === category);
             renderProducts(filteredProducts);

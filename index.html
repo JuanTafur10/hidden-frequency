@@ -15,10 +15,9 @@
             <p>Vinilos underground, pedales y equipo de producción</p>
         </div>
         <nav>
-            <ul class = "nav - links">
-                <li><a href = "#catalog">Catálogo</a></li>
-                <li><a href = "#booking">Reserva de Gear</a></li>
-
+            <ul class = "nav-links">
+                <li><a href="#catalog">Catálogo</a></li>
+                <li><a href="#booking">Reserva de Gear</a></li>
                 <li><button id= "theme-toggle">Modo Oscuro</button></li>
             </ul>
         </nav>
@@ -28,12 +27,13 @@
         <section id = "catalog">
             <h2>Catálogo de Equipos y Vinilos</h2>
 
-            <div class = "Filters">
-                <button class="filter-btn" data-category = "Todos">Todos</button>
-                <button class="filter-btn" data-category = "Vinilos">Vinilos</button>
-                <button class="filter-btn" data-category = "Pedales">Pedales</button>
-                <button class="filter-btn" data-category = "Intrumentos">Intrumentos</button>
-            </div>
+    <div class="filters">
+    
+        <button class="filter-btn active" data-category="Todos">Todos</button>
+        <button class="filter-btn" data-category="Vinilos">Vinilos</button>
+        <button class="filter-btn" data-category="Pedales">Pedales</button>
+        <button class="filter-btn" data-category="Instrumentos">Instrumentos</button>
+    </div>
 
             <div id = "catalog-grid" class = "grid-container"></div>
         </section>
