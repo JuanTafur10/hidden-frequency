@@ -39,7 +39,8 @@ function renderProducts(itemsToRender) {
         reserveButton.addEventListener('click', () => {
             const itemInput = document.getElementById('item');
             itemInput.value = item.title;
-            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            document.getElementById('booking').scrollIntoView({ behavior: motionPreference ? 'auto' : 'smooth' });
             itemInput.focus({ preventScroll: true });
         });
 
@@ -151,22 +152,30 @@ form.addEventListener('submit', (e) => {
 });
 
 const themeToggleBtn = document.getElementById('theme-toggle');
-const currentTheme = localStorage.getItem('theme');
+let currentTheme = null;
+
+try {
+    currentTheme = localStorage.getItem('theme');
+} catch {
+    // The theme still works for this page view when storage is unavailable.
+}
 
 if (currentTheme === 'dark') {
     document.body.classList.add('dark-mode');
     themeToggleBtn.textContent = 'Modo Claro';
+    themeToggleBtn.setAttribute('aria-pressed', 'true');
 }
 
 themeToggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    themeToggleBtn.setAttribute('aria-pressed', String(isDarkMode));
 
-    if (document.body.classList.contains('dark-mode')) {
-        localStorage.setItem('theme', 'dark');
-        themeToggleBtn.textContent = 'Modo Claro';
-    } else {
-        localStorage.setItem('theme', 'light');
-        themeToggleBtn.textContent = 'Modo Oscuro';
+    themeToggleBtn.textContent = isDarkMode ? 'Modo Claro' : 'Modo Oscuro';
+    try {
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    } catch {
+        // Keep the selected theme for this page view when storage is unavailable.
     }
 });
 

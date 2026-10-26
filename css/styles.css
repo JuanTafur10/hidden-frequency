@@ -1,7 +1,8 @@
 :root {
-    --bg-clor: #f4f4f5;
+    --bg-color: #f4f4f5;
     --text-color: #18181b;
     --primary-color: #e11d48;
+    --error-color: #b91c1c;
     --header-bg: #18181b;
     --header-text: #ffffff;
     --card-bg: #ffffff;
@@ -9,10 +10,11 @@
 }
 
 body.dark-mode {
-    --bg-clor: #18181b;
+    --bg-color: #18181b;
     --text-color: #f4f4f5;
     --header-bg: #09090b;
     --card-bg: #27272a;
+    --error-color: #fda4af;
 }
 
 * {
@@ -23,7 +25,7 @@ body.dark-mode {
 
 body {
     font-family: system-ui, -apple-system, sans-serif;
-    background-color: var(--bg-clor);
+    background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
     transition: background-color 0.3s, color 0.3s;
@@ -215,7 +217,7 @@ h2 {
 }
 
 .error-msg {
-    color: var(--primary-color);
+    color: var(--error-color);
     font-size: 0.85rem;
     margin-top: 0.3rem;
     min-height: 1.2rem;
@@ -231,6 +233,22 @@ button[type = "submit"] {
     font-size: 1rem;
     font-weight: bold;
     width: 100%;
+}
+
+button:focus-visible,
+a:focus-visible,
+.form-group input:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+button:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+.form-group input[aria-invalid="true"] {
+    border-color: var(--error-color);
 }
 
 footer {
@@ -267,6 +285,7 @@ footer {
     font-weight: bold;
     box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
     z-index: 1000;
+    max-width: min(32rem, calc(100vw - 2rem));
     
     opacity: 0;
     transform: translateY(20px);
@@ -279,4 +298,34 @@ footer {
     opacity: 1;
     transform: translateY(0);
     visibility: visible;
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 1.25rem;
+    }
+
+    #reservation-form {
+        padding: 1.25rem;
+    }
+
+    .toast {
+        right: 1rem;
+        bottom: 1rem;
+        left: 1rem;
+        max-width: none;
+        padding: 1rem;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
 }
