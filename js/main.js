@@ -71,71 +71,83 @@ filterButtons.forEach(button => {
 });
 
 const form = document.getElementById('reservation-form');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const itemInput = document.getElementById('item');
+
+function setFieldError(input, message) {
+    const error = document.getElementById(`${input.id}-error`);
+    error.textContent = message;
+    input.setAttribute('aria-invalid', String(Boolean(message)));
+}
+
+[nameInput, emailInput, itemInput].forEach(input => {
+    input.addEventListener('input', () => setFieldError(input, ''));
+});
 
 form.addEventListener('submit', (e) => {
     e.preventDefault(); 
 
     let isValid = true;
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const itemInput = document.getElementById('item');
+    let firstInvalidInput = null;
 
-    const nameError = document.getElementById('name-error');
-    const emailError = document.getElementById('email-error');
-    const itemError = document.getElementById('item-error');
+    [nameInput, emailInput, itemInput].forEach(input => setFieldError(input, ''));
 
-    nameError.textContent = '';
-    emailError.textContent = '';
-    itemError.textContent = '';
-
-    if (nameInput.value.trim().length < 3 === '') {
-        nameError.textContent = 'Por favor, ingresa tu nombre completo.';
+    if (nameInput.value.trim().length < 3) {
+        setFieldError(nameInput, 'Ingresa un nombre de al menos 3 caracteres.');
         isValid = false;
+        firstInvalidInput ??= nameInput;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailInput.value.trim() === '') {
-        emailError.textContent = 'El correo electrónico es obligatorio.';
+        setFieldError(emailInput, 'El correo electrónico es obligatorio.');
         isValid = false;
-    } else if (!emailRegex.test(emailInput.value)) {
-        emailError.textContent = 'Ingresa un correo válido.';
+        firstInvalidInput ??= emailInput;
+    } else if (!emailInput.validity.valid) {
+        setFieldError(emailInput, 'Ingresa un correo válido.');
         isValid = false;
+        firstInvalidInput ??= emailInput;
     }
 
-    if (itemInput.value.trim().length < 3 === '') {
-        itemError.textContent = 'Indícanos qué equipo o vinilo buscas.';
+    if (itemInput.value.trim().length < 3) {
+        setFieldError(itemInput, 'Indica qué equipo o vinilo buscas (mínimo 3 caracteres).');
         isValid = false;
+        firstInvalidInput ??= itemInput;
     }
 
-    if (isValid) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Enviando...';
-        submitBtn.disabled = true;
-
-        const formData = new FormData(form);
-
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showToast('¡Solicitud enviada! Revisa tu correo.');
-                form.reset(); 
-            } else {
-                alert('Error al enviar. ¿Pusiste tu Access Key de Web3Forms en el HTML?');
-            }
-        })
-        .catch(error => {
-            alert('Error de red. Revisa tu conexión.');
-        })
-        .finally(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        });
+    if (!isValid) {
+        firstInvalidInput.focus();
+        return;
     }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Enviando...';
+    submitBtn.disabled = true;
+
+    const formData = new FormData(form);
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Request failed');
+        return response.json();
+    })
+    .then(data => {
+        if (!data.success) throw new Error('Submission failed');
+        showToast('¡Solicitud enviada! Revisa tu correo.');
+        form.reset();
+        [nameInput, emailInput, itemInput].forEach(input => input.setAttribute('aria-invalid', 'false'));
+    })
+    .catch(() => {
+        showToast('No fue posible enviar la solicitud. Intenta de nuevo.');
+    })
+    .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    });
 });
 
 const themeToggleBtn = document.getElementById('theme-toggle');
