@@ -20,7 +20,7 @@ const products = [
     {
         id: 3,
         title: "korg Minilogue XD",
-        category: "Insterumentos",
+        category: "Instrumentos",
         price: 980000,
         description: "Sintetizador analógico polifónico de 4 voces con efectos digitales.",
         image: "assets/images/korg.jpg"

@@ -16,13 +16,34 @@ function renderProducts(itemsToRender) {
         const card = document.createElement('article');
         card.classList.add('product-card');
 
-        card.innerHTML = `
-            <img src="${item.image}" alt="${item.title}" style="width: 100%; border-radius: 4px; margin-bottom: 1rem; object-fit: cover; aspect-ratio: 1/1;">
-            <h3>${item.title}</h3>
-            <p>${item.description}</p>
-            <p class="product-price">${precioFormateado}</p>
-            <button class="card-btn">Lo quiero</button>
-        `;
+        const image = document.createElement('img');
+        image.src = item.image;
+        image.alt = item.title;
+        image.loading = 'lazy';
+
+        const title = document.createElement('h3');
+        title.textContent = item.title;
+
+        const description = document.createElement('p');
+        description.textContent = item.description;
+
+        const price = document.createElement('p');
+        price.classList.add('product-price');
+        price.textContent = precioFormateado;
+
+        const reserveButton = document.createElement('button');
+        reserveButton.type = 'button';
+        reserveButton.classList.add('card-btn');
+        reserveButton.textContent = 'Lo quiero';
+        reserveButton.setAttribute('aria-label', `Solicitar ${item.title}`);
+        reserveButton.addEventListener('click', () => {
+            const itemInput = document.getElementById('item');
+            itemInput.value = item.title;
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            itemInput.focus({ preventScroll: true });
+        });
+
+        card.append(image, title, description, price, reserveButton);
 
         gridContainer.appendChild(card);
     }); 
@@ -31,12 +52,14 @@ function renderProducts(itemsToRender) {
 renderProducts(products);
 
 filterButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        e.target.classList.add('active');
+    button.addEventListener('click', () => {
+        filterButtons.forEach(btn => {
+            const isActive = btn === button;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-pressed', String(isActive));
+        });
 
-        const category = e.target.getAttribute('data-category');
-        console.log("Filtrando por:", category);
+        const category = button.dataset.category;
 
         if (category === 'Todos') {
             renderProducts(products); 
